@@ -5,12 +5,22 @@ module Flavordb
 
   class << self
     attr_accessor :configuration
+
+    def configuration
+      if @configuration.nil?
+        @configuration = Configuration.new
+      end
+      @configuration
+    end
+
+    def configure
+      @configuration ||= Configuration.new
+      yield(@configuration)
+    end
+
   end
 
-  def self.configure
-    self.configuration ||= Configuration.new
-    yield(configuration)
-  end
+
 
   class Configuration
     attr_accessor :verbose
