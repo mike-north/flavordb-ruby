@@ -2,15 +2,7 @@ language: ruby
 rvm:
 - 2.0.0
 - 1.9.3
-- 1.9.2
-- jruby-18mode
-- jruby-19mode
-- rbx-18mode
-- rbx-19mode
-- ruby-head
-- jruby-head
 - 1.8.7
-- ree
 env:
   global:
   - secure: tklYdNk9OVh9usXyyPlpsw7srJ+u9Py1Hyqv7YsB9iu5YfImXDE7xwiTTx42eI/MEyVzNFb5CLYYECrDB9e89u8yTnrsaPfvINf2feMrkk/q4wVIa/zt/fD/v5oucAvZ41E04YJBw+Kr/gQiEiZiwV8iQTRDnRBBFzXFR7i/Ye8=
