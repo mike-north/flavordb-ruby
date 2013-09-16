@@ -35,6 +35,24 @@ module Flavordb
       end
     end
 
+    def find_businesses(params)
+      raw_businesses = get_object_data_by_path "/businesses", params
+      if !raw_businesses['data'].nil?
+        raw_businesses['data'].map {|b| Business.get_or_create(b)}
+      else
+        nil
+      end
+    end
+
+    def find_products(params)
+      raw_products= get_object_data_by_path "/products", params
+      if !raw_products['data'].nil?
+        raw_products['data'].map {|b| Product.get_or_create(b)}
+      else
+        nil
+      end
+    end
+
     def get_business(id)
       raw_business = get_object_data_by_path("/businesses/#{id}")
       !raw_business['data'].nil? ? Business.get_or_create(raw_business['data']) : nil
@@ -50,9 +68,9 @@ module Flavordb
       !raw_product['data'].nil? ? Product.get_or_create(raw_product['data']) : nil
     end
 
-    def get_object_data_by_path (path)
+    def get_object_data_by_path (path, api_params={})
       url = (path =~ /http:\/{2}/).nil? ? "#{api_endpoint}#{path}" : path
-      authenticated_json_request :get, url
+      authenticated_json_request :get, url, api_params
     end
 
     def api_token
@@ -63,8 +81,18 @@ module Flavordb
     end
 
     private
-    def authenticated_json_request (method, url)
-      request = Typhoeus::Request.new(url, method: method, headers: { 'Authorization' => "Bearer #{api_token}" })
+    def authenticated_json_request (method, url, api_params)
+      request = Typhoeus::Request.new url,
+                                      method: method,
+                                      headers: { 'Authorization' => "Bearer #{api_token}" },
+                                      params: api_params
+
+      if Flavordb.configuration.verbose
+        request_url = request.url
+        request_url = "#{request_url}#{(request_url =~ /\?/).nil? ? '?' : '&'}access_token=#{api_token}"
+        puts "[Flavordb API]: #{request_url}"
+      end
+
       response = request.run
       if response.return_code == :ok
         response_data = JSON.parse response.body

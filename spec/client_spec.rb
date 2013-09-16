@@ -1,5 +1,5 @@
 
-require './spec_helper'
+require 'spec/spec_helper'
 
 describe Flavordb::Client do
 
@@ -38,6 +38,13 @@ describe Flavordb::Client do
     business.should_not == nil
     business.id.should == 16
   end
+
+  it "should be able to find businesses by name" do
+    client = Flavordb::Client.new
+    businesses = client.find_businesses(q: 'Lagunitas')
+    businesses.should_not == nil
+  end
+
   it "should be able to get a product category by id" do
     client = Flavordb::Client.new
     product_category = client.get_product_category(16)
