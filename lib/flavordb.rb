@@ -1,5 +1,7 @@
-require "flavordb/version"
+require 'flavordb/version'
+require 'flavordb/client'
 
 module Flavordb
-  # Your code goes here...
+
+
 end
