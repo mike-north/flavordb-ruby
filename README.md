@@ -1,4 +1,4 @@
-![build status](https://api.travis-ci.org/TrueNorth/flavordb-ruby.png)
+[![build status](https://api.travis-ci.org/TrueNorth/flavordb-ruby.png)](https://travis-ci.org/TrueNorth/flavordb-ruby)
 # Flavordb
 
 TODO: Write a gem description
