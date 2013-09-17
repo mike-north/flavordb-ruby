@@ -41,7 +41,7 @@ describe Flavordb::Client do
 
   it "should be able to find businesses by name" do
     client = Flavordb::Client.new
-    businesses = client.find_businesses(q: 'Lagunitas')
+    businesses = client.find_businesses(:q => 'Lagunitas')
     businesses.should_not == nil
   end
 

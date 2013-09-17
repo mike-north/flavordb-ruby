@@ -83,9 +83,9 @@ module Flavordb
     private
     def authenticated_json_request (method, url, api_params)
       request = Typhoeus::Request.new url,
-                                      method: method,
-                                      headers: { 'Authorization' => "Bearer #{api_token}" },
-                                      params: api_params
+                                      :method => method,
+                                      :headers => { 'Authorization' => "Bearer #{api_token}" },
+                                      :params => api_params
 
       if Flavordb.configuration.verbose
         request_url = request.url
@@ -104,9 +104,9 @@ module Flavordb
 
     def get_oauth_token
       server_response = Typhoeus.post 'http://www.flavordb.com/oauth/token', :params => {
-          grant_type: 'client_credentials',
-          client_id: api_key,
-          client_secret: api_secret
+          :grant_type => 'client_credentials',
+          :client_id => api_key,
+          :client_secret => api_secret
       }
       begin
         response_data = JSON.parse(server_response.body)
